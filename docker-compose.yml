@@ -13,6 +13,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     working_dir: /src
+    env_file:
+      - ./docker.local.env
 
   front:
     build:

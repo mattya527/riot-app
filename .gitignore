@@ -1,4 +1,2 @@
-.docker.env
+.docker.local.env
 back/src/__pycache__/
-ssl/server.crt
-ssl/server.key
