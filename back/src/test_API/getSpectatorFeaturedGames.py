@@ -12,7 +12,7 @@ try:
     puuid = "QCCbUgKwomSanKMUNZQq5ui14SUmVUbFVeq6VLejUgVDFAuaOMnHbD9i2iMQzA0CFYpJyhboFRBE7g"
     res = lol_watcher.spectator.featured_games(region=platform)
     # active gameを取得
-    print(len(res['gameList']))
+    print(res)
 
 except ApiError as err:
     if err.response.status_code == 404:
