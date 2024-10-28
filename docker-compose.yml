@@ -1,0 +1,30 @@
+services:
+  back:
+    build:
+      context: ./back/
+      dockerfile: Dockerfile
+    image: riot-app-python:3.12.6
+    container_name: riot-app-back
+    volumes:
+      - ./back/src:/src
+    ports:
+      - 8000:8000
+    tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    working_dir: /src
+
+  front:
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    image: riot-app-node:20.18.0
+    container_name: riot-app-front
+    volumes:
+      - ./front/src:/src
+    ports:
+      - 3000:3000
+    tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    working_dir: /src
