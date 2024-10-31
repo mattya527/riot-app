@@ -9,7 +9,7 @@ platform = 'jp1'  # プラットフォームコードを適宜変更
 
 try:
     # サモナー情報を取得
-    puuid = "QCCbUgKwomSanKMUNZQq5ui14SUmVUbFVeq6VLejUgVDFAuaOMnHbD9i2iMQzA0CFYpJyhboFRBE7g"
+    # puuid = "QCCbUgKwomSanKMUNZQq5ui14SUmVUbFVeq6VLejUgVDFAuaOMnHbD9i2iMQzA0CFYpJyhboFRBE7g"
     res = lol_watcher.spectator.featured_games(region=platform)
     # active gameを取得
     print(res)
