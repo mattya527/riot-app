@@ -16,17 +16,17 @@ services:
     env_file:
       - .docker.local.env
 
-  # front:
-  #   build:
-  #     context: ./front/
-  #     dockerfile: Dockerfile
-  #   image: riot-app-node:20.18.0
-  #   container_name: riot-app-front
-  #   volumes:
-  #     - ./front/src:/src
-  #   ports:
-  #     - 3005:3000
-  #   tty: true
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
-  #   working_dir: /src
+  front:
+    build:
+      context: ./front/
+      dockerfile: Dockerfile
+    image: riot-app-node:20.18.0
+    container_name: riot-app-front
+    volumes:
+      - ./front/src:/src
+    ports:
+      - 3005:3000
+    tty: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    working_dir: /src

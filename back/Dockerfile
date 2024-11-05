@@ -21,3 +21,4 @@ RUN wget -P /tmp https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PY
 
 # Pythonのインストールを確認
 RUN python3 --version
+WORKDIR /src

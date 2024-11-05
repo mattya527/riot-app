@@ -1,2 +1,3 @@
 .docker.local.env
 back/src/__pycache__/
+front/src/node_modules/
