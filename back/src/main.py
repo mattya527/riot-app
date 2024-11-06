@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from modules.riotWatcherAccount import getPuuIdByRiotId
-from modules.lolWatcherMatch import getMatchListByPuuId
+from modules.lolWatcherMatch import getMatchListByPuuId, getMatchByMatchId
 
 app = FastAPI()
 
@@ -21,6 +21,7 @@ async def root():
 
 @app.get("/getMatchHistory")
 async def getMatchHistory(user_name : str ,tag_line : str, region : str = 'Asia'):
+    response = []
     puuid = getPuuIdByRiotId(user_name, tag_line, region)
     print(puuid)
     if puuid == 'Riot accout not found.':
@@ -29,4 +30,8 @@ async def getMatchHistory(user_name : str ,tag_line : str, region : str = 'Asia'
     print(match_list)
     if match_list == 'Match list not found.':
         return {"response" : "NG", "message" : "Match list not found."}
-    return {"response" : "OK", "match_list" : match_list}
+    for match in match_list:
+        print(match)
+        match_info = getMatchByMatchId(match, region)
+        response.append(match_info)
+    return {"response" : "OK", "match_list" : response}

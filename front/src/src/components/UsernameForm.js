@@ -1,9 +1,10 @@
-import React, { useState, } from 'react';
+import React, { Fragment, useState, } from 'react';
 import { Container, TextField, Button, Typography, Box, Stack } from '@mui/material';
 
 const UserNameForm = () => {
     const [user_name, setUserName] = useState('')
     const [tag_line, setTagLine] = useState('')
+    const [data, setData] = useState(null)
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -26,8 +27,9 @@ const UserNameForm = () => {
             throw new Error('API request failed')
         }
 
-        const data = await response.json()
-        console.log('API Response :', data)
+        const result = await response.json()
+        console.log('API Response :', result)
+        setData(result)
         alert('Username Submit successfully')
       }catch(error){
         console.log('Error submitting :',error)
@@ -36,52 +38,62 @@ const UserNameForm = () => {
     }
   
     return (
-      <Container maxWidth="sm" sx={{ mt : 5 }}>
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            display : 'flex',
-            flexDirection : 'column',
-            alignItems : 'center',
-            p : 4,
-            borderRadius : 2,
-            boxShadow : 3,
-            backgroundColor : '#f5f5f5',
-          }}
-        >
-          <Typography variant='h5' sx={{ mb : 2}}>
-            IDを入力
-          </Typography>
-          <Stack direction='row' spacing={2} sx={{ mb : 3, width : '100%' }}>
-            <TextField
-                label='Username'
-                variant='outlined'
-                fullWidth
-                sx={{ mb : 3}}
-                value={user_name}
-                onChange={(e) => setUserName(e.target.value)}
-            />
-            <TextField
-                label='tagline'
-                variant='outlined'
-                fullWidth
-                sx={{ mb : 3}}
-                value={tag_line}
-                onChange={(e) => setTagLine(e.target.value)}
-            />
-            </Stack>
-            <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                fullWidth
-                sx={{ p : 1.5}}
-            >
-                Submit
-            </Button>
-        </Box>
-      </Container>
+        <Fragment>
+            <Container maxWidth="sm" sx={{ mt : 5 }}>
+                <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{
+                    display : 'flex',
+                    flexDirection : 'column',
+                    alignItems : 'center',
+                    p : 4,
+                    borderRadius : 2,
+                    boxShadow : 3,
+                    backgroundColor : '#f5f5f5',
+                }}
+                >
+                <Typography variant='h5' sx={{ mb : 2}}>
+                    IDを入力
+                </Typography>
+                <Stack direction='row' spacing={2} sx={{ mb : 3, width : '100%' }}>
+                    <TextField
+                        label='Username'
+                        variant='outlined'
+                        fullWidth
+                        sx={{ mb : 3}}
+                        value={user_name}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <TextField
+                        label='tagline'
+                        variant='outlined'
+                        fullWidth
+                        sx={{ mb : 3}}
+                        value={tag_line}
+                        onChange={(e) => setTagLine(e.target.value)}
+                    />
+                    </Stack>
+                    <Button
+                        type='submit'
+                        variant='contained'
+                        color='primary'
+                        fullWidth
+                        sx={{ p : 1.5}}
+                    >
+                        Submit
+                    </Button>
+                </Box>
+            </Container>
+            <Container maxWidth="sm" sx={{ mt : 5 }}>
+                {data && (
+                    <Box mt={3}>
+                    <Typography variant="h6">Fetched Data:</Typography>
+                    <Typography>{JSON.stringify(data)}</Typography>
+                    </Box>
+                )}
+            </Container>
+        </Fragment>
     )
   }
 
