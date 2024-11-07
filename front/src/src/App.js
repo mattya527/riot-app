@@ -1,11 +1,18 @@
 import './App.css';
 import React from 'react';
-import UserNameForm from './components/UsernameForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import UserNameForm from './pages/UsernameForm';
+import MatchHistoryList from './pages/MatchHistoryList';
 
 
 function App() {
   return (
-    <UserNameForm></UserNameForm>
+    <Router>
+      <Routes>
+        <Route path="/" element={<UserNameForm />} />
+        <Route path="/match-history-list" element={<MatchHistoryList />} />
+      </Routes>
+    </Router>
   );
 }
 

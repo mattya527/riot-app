@@ -8,4 +8,4 @@ ENV NODE_OPTIONS=--openssl-legacy-provider
 
 RUN apk add openssl
 WORKDIR /src
-RUN npm install
+# RUN npm install

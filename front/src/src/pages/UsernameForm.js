@@ -1,36 +1,22 @@
 import React, { Fragment, useState, } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box, Stack } from '@mui/material';
 
 const UserNameForm = () => {
     const [user_name, setUserName] = useState('')
     const [tag_line, setTagLine] = useState('')
-    const [data, setData] = useState(null)
+    const navigate = useNavigate()
   
     const handleSubmit = async (e) => {
       e.preventDefault();
       console.log('Submited username : ',user_name)
       console.log('Submited tagline : ', tag_line)
       try{
-        const params = {
-            user_name : user_name,
-            tag_line : tag_line,
-            region : 'Asia'
+        if(user_name === '' || tag_line === ''){
+          alert('Please fill the username and tagline')
+          return
         }
-        const query = new URLSearchParams(params)
-        const response = await fetch(`http://localhost:8005/getMatchHistory?${query}`,{
-            method : 'GET',
-            headers : {
-                'Content-Type' : 'application/json',
-            }
-        })
-        if(!response.ok){
-            throw new Error('API request failed')
-        }
-
-        const result = await response.json()
-        console.log('API Response :', result)
-        setData(result)
-        alert('Username Submit successfully')
+        navigate('/match-history-list', { state : { user_name, tag_line }})
       }catch(error){
         console.log('Error submitting :',error)
         alert('Failed to submit username. Please try again.')
@@ -84,14 +70,6 @@ const UserNameForm = () => {
                         Submit
                     </Button>
                 </Box>
-            </Container>
-            <Container maxWidth="sm" sx={{ mt : 5 }}>
-                {data && (
-                    <Box mt={3}>
-                    <Typography variant="h6">Fetched Data:</Typography>
-                    <Typography>{JSON.stringify(data)}</Typography>
-                    </Box>
-                )}
             </Container>
         </Fragment>
     )
